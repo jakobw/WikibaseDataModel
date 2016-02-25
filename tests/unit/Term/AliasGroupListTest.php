@@ -46,7 +46,7 @@ class AliasGroupListTest extends PHPUnit_Framework_TestCase {
 
 		$list = new AliasGroupList( $array );
 
-		$this->assertEquals( $array, iterator_to_array( $list ) );
+		$this->assertSame( $array, iterator_to_array( $list ) );
 	}
 
 	public function testGivenGroupsWithTheSameLanguage_onlyTheLastOnesAreRetained() {
@@ -83,7 +83,7 @@ class AliasGroupListTest extends PHPUnit_Framework_TestCase {
 		 */
 		foreach ( $list as $key => $aliasGroup ) {
 			$this->assertEquals( $group, $aliasGroup );
-			$this->assertEquals( $aliasGroup->getLanguageCode(), $key );
+			$this->assertSame( $aliasGroup->getLanguageCode(), $key );
 		}
 	}
 
@@ -157,7 +157,7 @@ class AliasGroupListTest extends PHPUnit_Framework_TestCase {
 
 		$list->removeByLanguage( 'en' );
 
-		$this->assertEquals( new AliasGroupList(), $list );
+		$this->assertTrue( $list->isEmpty() );
 	}
 
 	/**
@@ -170,20 +170,13 @@ class AliasGroupListTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGivenEmptyGroups_constructorRemovesThem() {
-		$enGroup = new AliasGroup( 'en', array( 'foo' ) );
-
 		$list = new AliasGroupList( array(
 			new AliasGroup( 'de' ),
-			$enGroup,
-			new AliasGroup( 'en' ),
-			new AliasGroup( 'nl' ),
-		) );
-
-		$expectedList = new AliasGroupList( array(
+			new AliasGroup( 'en', array( 'foo' ) ),
 			new AliasGroup( 'en' ),
 		) );
 
-		$this->assertEquals( $expectedList, $list );
+		$this->assertTrue( $list->isEmpty() );
 	}
 
 	public function testGivenEmptyGroup_setGroupRemovesGroup() {
@@ -191,12 +184,10 @@ class AliasGroupListTest extends PHPUnit_Framework_TestCase {
 			new AliasGroup( 'en', array( 'foo' ) ),
 		) );
 
-		$expectedList = new AliasGroupList();
-
 		$list->setGroup( new AliasGroup( 'en' ) );
 		$list->setGroup( new AliasGroup( 'de' ) );
 
-		$this->assertEquals( $expectedList, $list );
+		$this->assertEquals( new AliasGroupList(), $list );
 	}
 
 	public function testEmptyListEqualsEmptyList() {
@@ -331,7 +322,7 @@ class AliasGroupListTest extends PHPUnit_Framework_TestCase {
 
 		$list = new AliasGroupList( $array );
 
-		$this->assertEquals( $array, $list->toArray() );
+		$this->assertSame( $array, $list->toArray() );
 	}
 
 	public function testGivenEmptyList_getWithLanguagesReturnsEmptyList() {
