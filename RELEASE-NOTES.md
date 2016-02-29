@@ -15,6 +15,7 @@
     * `getByLangauge` now throws an `OutOfBoundsException`.
     * `removeByLanguage` does nothing for invalid values.
     * `hasTermForLanguage` and `hasGroupForLangauge` return false instead.
+* Added `clear` to `TermList`, `AliasGroupList` and `StatementList`
 
 ## Version 5.1.0 (2016-03-08)
 

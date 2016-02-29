@@ -383,4 +383,14 @@ class AliasGroupListTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( $expected, $list->toTextArray() );
 	}
 
+	public function testClear() {
+		$list = new AliasGroupList();
+		$list->setAliasesForLanguage( 'en', array( 'foo', 'baz' ) );
+		$list->setAliasesForLanguage( 'de', array( 'bar' ) );
+
+		$list->clear();
+
+		$this->assertEquals( new AliasGroupList(), $list );
+	}
+
 }

@@ -326,6 +326,15 @@ class StatementList implements IteratorAggregate, Comparable, Countable {
 	}
 
 	/**
+	 * Removes all statements from this list.
+	 *
+	 * @since 6.0
+	 */
+	public function clear() {
+		$this->statements = array();
+	}
+
+	/**
 	 * @see http://php.net/manual/en/language.oop5.cloning.php
 	 *
 	 * @since 5.1
