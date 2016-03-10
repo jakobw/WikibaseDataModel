@@ -236,10 +236,9 @@ class ReferenceListTest extends PHPUnit_Framework_TestCase {
 		$this->assertCount( 2, $list, 'not added' );
 		$this->assertSame( 0, $list->indexOf( $reference ), 'can decrease index' );
 
-		$list->addReference( $reference, 2 );
+		$list->addReference( $reference, 1 );
 
-		$this->assertCount( 2, $list, 'not added' );
-		$this->assertSame( 0, $list->indexOf( $reference ), 'can not increase index' );
+		$this->assertSame( 1, $list->indexOf( $reference ), 'can increase index' );
 	}
 
 	public function testAddReferenceAtIndexZero() {

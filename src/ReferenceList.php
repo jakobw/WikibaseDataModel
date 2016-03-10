@@ -71,9 +71,19 @@ class ReferenceList implements Comparable, Countable, IteratorAggregate, Seriali
 			return;
 		}
 
+		$objectHash = spl_object_hash( $reference );
+
+		if ( array_key_exists( $objectHash, $this->references ) ) {
+			unset( $this->references[$objectHash] );
+
+			if ( $index !== null && $index < $this->indexOf( $reference ) ) {
+				$index--;
+			}
+		}
+
 		if ( $index === null || $index >= count( $this->references ) ) {
 			// Append object to the end of the reference list.
-			$this->references[spl_object_hash( $reference )] = $reference;
+			$this->references[$objectHash] = $reference;
 		} else {
 			$this->insertReferenceAtIndex( $reference, $index );
 		}
